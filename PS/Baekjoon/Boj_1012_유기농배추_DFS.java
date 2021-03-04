@@ -2,11 +2,10 @@ package Boj;
 
 import java.util.Scanner;
 
-public class Boj_1012_¿Ø±‚≥ÛπË√ﬂ_DFS {
+public class Boj_1012_¿Ø±‚≥ÛπË√ﬂ_DFS_ver2 {
 	
 	static int M, N, K;
 	static int[][] map;
-	static boolean[][] visit;
 	static int[] di = {-1,1,0,0};
 	static int[] dj = {0,0,-1,1};
 	
@@ -29,7 +28,6 @@ public class Boj_1012_¿Ø±‚≥ÛπË√ﬂ_DFS {
 			K = sc.nextInt();
 			
 			map = new int[N][M];
-			visit = new boolean[N][M];
 			
 			for(int k=0; k<K; k++) {
 				int j = sc.nextInt();
@@ -40,7 +38,7 @@ public class Boj_1012_¿Ø±‚≥ÛπË√ﬂ_DFS {
 			int count = 0;
 			for(int i=0; i<N; i++) {
 				for(int j=0; j<M; j++) {
-					if(map[i][j] == 1 && !visit[i][j]) {
+					if(map[i][j] == 1) {
 						dfs(i, j);
 						++count;
 					}
@@ -55,15 +53,13 @@ public class Boj_1012_¿Ø±‚≥ÛπË√ﬂ_DFS {
 
 	private static void dfs(int i, int j) {
 		
-		visit[i][j] = true;
-		
 		for(int d=0; d<4; d++) {
 			int ni = i + di[d];
 			int nj = j + dj[d];
 			if(ni<0 || ni>=N || nj<0 || nj>=M) continue;
-			if(map[ni][nj] == 1 && !visit[ni][nj]) {
-				dfs(ni, nj);
-			}
+			if(map[ni][nj] == 0) continue;
+			map[ni][nj] = 0;
+			dfs(ni, nj);
 		}
 		
 	}
